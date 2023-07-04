@@ -10,14 +10,14 @@ import { TitleContacts } from './App.styled';
 const LS_KEY = 'contact_item_index';
 
 class App extends Component {
-    state = {
+  state = {
     contacts: [
-    {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
-    {id: 'id-2', name: 'Hermione Kline', number: '443-89-12'},
-    {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
-    {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
-  ],
-  filter: '',
+      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+    ],
+    filter: '',
   };
 
   addContact = ({ name, number }) => {
@@ -29,10 +29,10 @@ class App extends Component {
         isAdded = true;
       }
     });
-      if (isAdded) {
+    if (isAdded) {
       return;
     }
-        const contact = {
+    const contact = {
       id: shortid.generate(),
       name: name,
       number: number,
@@ -42,18 +42,18 @@ class App extends Component {
     }));
   };
 
-filterChange = e => {
+  filterChange = e => {
     this.setState({ filter: e.target.value });
   };
 
-visiblContacts = () => {
+  visiblContacts = () => {
     const { filter, contacts } = this.state;
     const normalizedFilter = filter.toLowerCase();
     return contacts.filter(contact =>
       contact.name.toLowerCase().includes(normalizedFilter)
     );
   };
- 
+
   removeContact = todoId => {
     this.setState(prevState => {
       return {
@@ -61,7 +61,7 @@ visiblContacts = () => {
       };
     });
   };
-  
+
   //LS
   componentDidMount() {
     const contacts = localStorage.getItem(LS_KEY);
@@ -82,25 +82,15 @@ visiblContacts = () => {
     const filterContact = this.visiblContacts();
     return (
       <div>
-        <h1>
-          Phonebook
-        </h1>
+        <h1>Phonebook</h1>
         <ContactForm onSubmit={this.addContact} />
-        <TitleContacts>
-          Contacts
-        </TitleContacts>
-        <AllContacts>
-          All contacts: {contacts.length}
-        </AllContacts>
+        <TitleContacts>Contacts</TitleContacts>
+        <AllContacts>All contacts: {contacts.length}</AllContacts>
         <Filter value={filter} onFilterChange={this.filterChange} />
-          {contacts.length ? (
-            <ContactList
-              contacts={filterContact}
-              onDelete={this.removeContact} />
-          ) : (
-            <TitleContacts>
-              No contacts added yet
-            </TitleContacts>
+        {contacts.length ? (
+          <ContactList contacts={filterContact} onDelete={this.removeContact} />
+        ) : (
+          <TitleContacts>No contacts added yet</TitleContacts>
         )}
       </div>
     );
