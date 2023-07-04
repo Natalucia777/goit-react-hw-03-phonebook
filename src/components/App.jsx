@@ -62,6 +62,7 @@ visiblContacts = () => {
     });
   };
   
+  //LS
   componentDidMount() {
     const contacts = localStorage.getItem(LS_KEY);
     const parsContacts = JSON.parse(contacts);
